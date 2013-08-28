@@ -44,6 +44,9 @@ Dot-notation should **always** be used for accessing and mutating properties. Br
 ```objc
 view.backgroundColor = [UIColor orangeColor];
 [UIApplication sharedApplication].delegate;
+
+// Or, for completely aesthetic reasons:
+[[UIApplication sharedApplication] delegate];
 ```
 
 **Not:**
