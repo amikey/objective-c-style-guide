@@ -242,11 +242,22 @@ Block comments should generally be avoided, as code should be as self-documentin
 
 `NSString`, `NSDictionary`, `NSArray`, and `NSNumber` literals should be used whenever creating immutable instances of those objects. Pay special care that `nil` values not be passed into `NSArray` and `NSDictionary` literals, as this will cause a crash.
 
+`NSDictionary` key-value pairs and long `NSArray` values should be placed on new lines, preferably with trailing final commas. In this case, the closing brace or bracket should go on a new line.
+
 **For example:**
 
 ```objc
 NSArray *names = @[@"Brian", @"Matt", @"Chris", @"Alex", @"Steve", @"Paul"];
-NSDictionary *productManagers = @{@"iPhone" : @"Kate", @"iPad" : @"Kamal", @"Mobile Web" : @"Bill"};
+NSArray *cultureStatements = @[
+    @"It's ok to leave (or simply not attend) any meeting that you don't feel is important for you.",
+    @"Anybody can fix anything.",
+    @"Shipping beats perfection",
+];
+NSDictionary *productManagers = @{
+    @"iPhone" : @"Kate",
+    @"iPad" : @"Kamal",
+    @"Mobile Web" : @"Bill",
+};
 NSNumber *shouldUseLiterals = @YES;
 NSNumber *buildingZIPCode = @10018;
 ```
