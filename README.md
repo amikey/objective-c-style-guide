@@ -24,6 +24,7 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Variables](#variables)
 * [Naming](#naming)
   * [Underscores](#underscores)
+* [Docstrings](#docstrings)
 * [Comments](#comments)
 * [Init & Dealloc](#init-and-dealloc)
 * [Literals](#literals)
@@ -214,6 +215,37 @@ id varnm;
 ### Underscores
 
 When using properties, instance variables should always be accessed and mutated using `self.`. This means that all properties will be visually distinct, as they will all be prefaced with `self.`. Local variables should not contain underscores.
+
+## Docstrings
+
+All non-trivial methods, interfaces, categories, and protocol declarations should have accompanying comments describing their purpose and how they fit into the larger picture. For more examples, see the Google Style Guide around [File and Declaration Comments](http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml#File_Comments).
+
+To summarize: There are two types of docstrings, long-form and short-form.
+
+A short-form docstring fits entirely on one line, including the comment slashes. It is used for simple functions, especially (though by no means exclusively) ones that are not part of a public API:
+
+```// Return a user-readable form of a Frobnozz, html-escaped.```
+
+Note that the text is specified as an action (“return”) rather than a description (“returns”). This has the added advantage of taking less space, so the comment is more likely to fit on a single line. :-)
+
+If the description spills past one line, you should move to the long-form docstring: a summary line (one physical line) preceded by an opening block comment with two asterisks on a line of its own (/\*\*, terminated by a period, question mark, or exclamation point, followed by a blank line, followed by the rest of the doc string starting at the same cursor position as the first quote of the first line, ending with an end-block comment (\*/) on a line by itself.
+
+```
+/**
+ This comment serves to demonstrate the format of a docstring.
+
+ Note that the summary line is always at most one line long, and
+ after the opening block comment, and each line of text is preceded
+ by a single space.
+*/
+```
+
+A function must have a docstring unless it meets all of the following criteria:
+not externally visible
+very short
+obvious
+
+The docstring should describe the function's calling syntax and its semantics, not its implementation.
 
 ## Comments
 
