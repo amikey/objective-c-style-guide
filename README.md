@@ -218,32 +218,57 @@ When using properties, instance variables should always be accessed and mutated 
 
 ## Docstrings
 
-All non-trivial methods, interfaces, categories, and protocol declarations should have accompanying comments describing their purpose and how they fit into the larger picture. For more examples, see the Google Style Guide around [File and Declaration Comments](http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml#File_Comments).
+All non-trivial methods, interfaces, categories, and protocol declarations should have accompanying comments describing their purpose and how they fit into the larger picture. Docstrings belong in the header file.
 
-To summarize: There are two types of docstrings, long-form and short-form.
+We're following the guidelines described here: http://nshipster.com/documentation/
 
-A short-form docstring fits entirely on one line, including the comment slashes. It is used for simple functions, especially (though by no means exclusively) ones that are not part of a public API:
+...which point to a couple great examples, including [this one](https://github.com/mattt/FormatterKit/blob/master/FormatterKit/TTTAddressFormatter.h) and [this one](https://github.com/marcransome/MRBrew/blob/master/MRBrew/MRBrew.h). Check these out if you're unsure how to docstring something!
 
-```// Return a user-readable form of a Frobnozz, html-escaped.```
-
-Note that the text is specified as an action (“return”) rather than a description (“returns”). This has the added advantage of taking less space, so the comment is more likely to fit on a single line. :-)
-
-If the description spills past one line, you should move to the long-form docstring: a summary line (one physical line) preceded by an opening block comment with two asterisks on a line of its own (/\*\*, terminated by a period, question mark, or exclamation point, followed by a blank line, followed by the rest of the doc string starting at the same cursor position as the first quote of the first line, ending with an end-block comment (\*/) on a line by itself.
+And if you're really lazy and don't want to click links, here's a friendly example:
 
 ```
 /**
- This comment serves to demonstrate the format of a docstring.
+ Instances of `TTTAddressFormatter` create address strings formatted according to a given locale.
+ 
+ For example, addresses in the United States take the form:
+    
+    Street Address
+    City State ZIP
+    Country
+ 
+ Whereas addresses in Japan follow a different convention:
+ 
+    Postal Code
+    Prefecture Municipality
+    Street Address
+    Country
 
- Note that the summary line is always at most one line long, and
- after the opening block comment, and each line of text is preceded
- by a single space.
-*/
+ All of the business logic for these rules is handled by`ABCreateStringWithAddressDictionary`, from the `AddressBookUI` framework. `TTTAddressFormatter` acts as a convenient wrapper to this functionality.
+ */
+@interface TTTAddressFormatter : NSFormatter
+
+/**
+ Specifies the locale used to format strings. Defaults to the current system locale.
+ */
+@property (nonatomic, strong) NSLocale *locale;
+
+...
+
+/**
+ Returns an address string for the specified components formatted with the receiver's locale.
+ 
+ @param street The street address
+ @param locality The locality (a.k.a. city, municipality, township)
+ @param region The region (a.k.a. state, prefecture, principality)
+ @param postalCode The postal code (a.k.a ZIP code)
+ @param country The country
+ */
+- (NSString *)stringFromAddressWithStreet:(NSString *)street
+                                 locality:(NSString *)locality
+                                   region:(NSString *)region
+                               postalCode:(NSString *)postalCode
+                                  country:(NSString *)country;
 ```
-
-A function must have a docstring unless it meets all of the following criteria:
-not externally visible
-very short
-obvious
 
 The docstring should describe the function's calling syntax and its semantics, not its implementation.
 
