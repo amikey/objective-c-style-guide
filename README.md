@@ -391,6 +391,10 @@ typedef NS_ENUM(NSInteger, NYTAdRequestState) {
 };
 ```
 
+## Protocol methods
+
+Add `@required` and `@optional` to all protocol definitions; as much as possible, try to keep all `@required` methods grouped together at the top and all `@optional` methods below.
+
 ## Private Properties
 
 Private properties should be declared in class extensions (anonymous categories) in the implementation file of a class. Named categories (such as `NYTPrivate` or `private`) should never be used unless extending another class.
